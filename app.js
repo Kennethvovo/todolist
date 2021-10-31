@@ -23,6 +23,14 @@ app.get('/', (req, res) => {
     .catch((error) => console.error(error)) // 錯誤處理
 })
 
+app.get('/todos/:id', (req, res) => {
+  const id = req.params.id
+  return Todo.findById(id)
+    .lean()
+    .then((todo) => res.render('detail', { todo }))
+    .catch((error) => console.log(error))
+})
+
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
 
