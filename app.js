@@ -51,6 +51,14 @@ app.post('/todos/:id/edit', (req, res) => {
     .catch((error) => console.log(error))
 })
 
+app.post('/todos/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Todo.findById(id)
+    .then((todo) => todo.remove())
+    .then(() => res.redirect('/'))
+    .catch((error) => console.log(error))
+})
+
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
 
