@@ -12,6 +12,7 @@ const methodOverride = require('method-override')
 const routes = require('./routes')
 const { prototype } = require('express-handlebars/lib/express-handlebars')
 const PORT = process.env.PORT || 3000
+
 const app = express()
 require('./config/mongoose')
 
@@ -25,6 +26,6 @@ app.set('view engine', 'hbs')
 // 設定首頁路由 將 request 導入路由器
 app.use(routes)
 // 設定 port 3000
-app.listen(prototype, () => {
+app.listen(PORT, () => {
   console.log(`App is running on http://localhost:${PORT}`)
 })
