@@ -12,7 +12,7 @@ const methodOverride = require('method-override')
 const routes = require('./routes')
 const { prototype } = require('express-handlebars/lib/express-handlebars')
 const PORT = process.env.PORT || 3000
-
+const session = require('express-session')
 const app = express()
 require('./config/mongoose')
 
@@ -20,6 +20,14 @@ require('./config/mongoose')
 app.use(bodyParser.urlencoded({ extended: true }))
 // 設定每一筆請求都會透過 methodOverride 進行前置處理
 app.use(methodOverride('_method'))
+
+app.use(
+  session({
+    secret: 'ThisIsMySecret',
+    resave: false,
+    saveUninitialized: true,
+  })
+)
 //樣板引擎指定為 Handlebars
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
