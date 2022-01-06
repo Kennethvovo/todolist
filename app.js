@@ -12,7 +12,6 @@ const methodOverride = require('method-override')
 // 載入設定檔，要寫在 express-session 以後
 const usePassport = require('./config/passport')
 // 呼叫 Passport 函式並傳入 app，這條要寫在路由之前
-usePassport(app)
 
 // 引用路由器
 const routes = require('./routes')
@@ -20,8 +19,8 @@ const { prototype } = require('express-handlebars/lib/express-handlebars')
 const PORT = process.env.PORT || 3000
 const session = require('express-session')
 const app = express()
-require('./config/mongoose')
 
+require('./config/mongoose')
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
 // 設定每一筆請求都會透過 methodOverride 進行前置處理
@@ -34,9 +33,12 @@ app.use(
     saveUninitialized: true,
   })
 )
+
 //樣板引擎指定為 Handlebars
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+usePassport(app)
+
 // 設定首頁路由 將 request 導入路由器
 app.use(routes)
 // 設定 port 3000
